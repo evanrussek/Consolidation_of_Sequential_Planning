@@ -1,0 +1,474 @@
+%% Provide some details of the data input file and output file name
+clear all
+
+for subject=1;
+
+%participants to be processed    
+partList        = [1 2 3 4 5 6 9 10 11 12 14 15 18 19 20 21 22 23 24 26 27 28 29 30 31 32 33 34 35 36];
+inFolder 	= ['D:\Project 1\ChainRL\Subject ', num2str(subject), '\'];
+
+%files
+Stub{9,1}      = 'MG06368_NB002_20211027_';
+Stub{9,2}      = 'MG06380_NB002_20211104_';
+Stub{11,1}      = 'MG06376_NB002_20211101_';
+Stub{11,2}      = 'MG06385_NB002_20211108_';
+Stub{12,1}      = 'MG06379_NB002_20211103_';
+Stub{12,2}      = 'MG06388_NB002_20211110_';
+Stub{14,1}      = 'MG06400_NB002_20211117_';
+Stub{14,2}      = 'MG06404_NB002_20211123_';
+Stub{15,1}      = 'MG06404_NB002_20211122_';
+Stub{15,2}      = 'MG06415_NB002_20211129_';
+Stub{17,1}      = 'MG06421_NB002_20211201_';
+Stub{17,2}      = 'MG06421_NB002_20211201_';
+Stub{18,1}      = 'MG06430_NB002_20211206_';
+Stub{18,2}      = 'MG06444_NB002_20211213_';
+Stub{19,1}      = 'MG06431_NB002_20211206_';
+Stub{19,2}      = 'MG06445_NB002_20211213_';
+Stub{20,1}      = 'MG06457_NB002_20220117_';
+Stub{20,2}      = 'MG06466_NB002_20220124_';
+Stub{21,1}      = 'MG06461_NB002_20220119_';
+Stub{21,2}      = 'MG06469_NB002_20220126_';
+Stub{22,1}      = 'MG06465_NB002_20220124_';
+Stub{22,2}      = 'MG06475_NB002_20220131_';
+Stub{23,1}      = 'MG06470_NB002_20220126_';
+Stub{23,2}      = 'MG06479_HalExp_20220202_';
+Stub{24,1}      = 'MG06472_NB002_20220127_';
+Stub{24,2}      = 'MG06482_NB002_20220204_';
+Stub{26,1}      = 'MG06483_NB002_20220204_';
+Stub{26,2}      = 'MG06489_NB002_20220211_';
+Stub{27,1}      = 'MG06484_NB002_20220207_';
+Stub{27,2}      = 'MG06491_NB002_20220214_';
+Stub{28,1}      = 'MG06485_NB002_20220207_';
+Stub{28,2}      = 'MG06492_NB002_20220214_';
+Stub{29,1}      = 'MG06487_NB002_20220209_';
+Stub{29,2}      = 'MG06493_NB002_20220216_';
+Stub{30,1}      = 'MG06494_NB002_20220216_';
+Stub{30,2}      = 'MG06501_NB002_20220223_';
+Stub{31,1}      = 'MG06498_NB002_20220222_';
+Stub{31,2}      = 'MG06508_NB002_20220301_';
+Stub{32,1}      = 'MG06503_NB002_20220224_';
+Stub{32,2}      = 'MG06512_NB002_20220303_';
+Stub{33,1}      = 'MG06513_NB002_20220307_';
+Stub{33,2}      = 'MG06522_NB002_20220314_';
+Stub{34,1}      = 'MG06514_NB002_20220307_';
+Stub{34,2}      = 'MG06523_NB002_20220315_';
+Stub{35,1}      = 'MG06517_NB002_20220309_';
+Stub{35,2}      = 'MG06524_NB002_20220316_';
+Stub{36,1}      = 'MG06332_NB002_20210929_'; 
+Stub{36,2}      = 'MG06343_NB002_20211011_';
+
+%runs available for ea
+firsts{9}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{9}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{11}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{11}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{12}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{12}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{14}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{14}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{15}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{15}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{17}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{17}=[];
+firsts{18}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{18}=[1, 2, 3, 4, 5, 6, 7, 8, 9];
+firsts{19}=[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+seconds{19}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{20}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{20}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{21}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{21}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{22}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{22}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{23}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{23}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{24}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{24}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{26}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17];
+seconds{26}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{27}=[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+seconds{27}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{28}=[1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17];
+seconds{28}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{29}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{29}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{30}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{30}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{31}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+seconds{31}=[1, 2, 3, 5, 6, 7, 8, 9];
+firsts{32}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{32}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{33}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{33}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{34}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{34}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{35}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+seconds{35}=[1, 2, 3, 4, 5, 6, 7, 8];
+firsts{36}=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+seconds{36}=[1, 2, 3, 4, 5, 6, 7, 8];
+
+first=firsts{subject};
+second=seconds{subject};
+
+inStub=Stub{subject,1};
+outStub     = ['Part', num2str(1), '_'];
+behFolder   = ['D:\Project 1\Behav_Data\'];
+
+
+behStub     = ['Subject', num2str(subject),'Block'];
+downSample  = false;        % Do we want to downsample the data?
+downFs      = 200;          % If so, what is the new sampling frequency?
+
+RunsS=[[first],[second]];
+
+%% Convert  to SPM12 format
+       parfor run=1:size(first,2)+size(second,2);
+           if run<size(first,2)+1;
+                session=1;
+                rrun=RunsS(run);
+                outStub     = ['Part', num2str(session), '_'];
+           [D] = preprocessMEG2_parallel(rrun,downSample,inFolder,Stub{subject,session},['Part', num2str(session), '_']);
+           else
+                session=2;
+                rrun=RunsS(run);
+                outStub     = ['Part', num2str(session), '_'];
+           [D] = preprocessMEG2_parallel(rrun,downSample,inFolder,Stub{subject,session},['Part', num2str(session), '_']);
+           end
+       end
+
+      
+%% initial cropping of runs
+     
+  for run=1:size(first,2)+size(second,2);
+                 close all
+                 
+          if run<size(first,2)+1;
+                session=1;
+                rrun=RunsS(run);
+                outStub     = ['Part', num2str(session), '_'];
+           else
+                session=2;
+                rrun=RunsS(run);
+                outStub     = ['Part', num2str(session), '_'];
+           end
+
+           D=spm_eeg_load([inFolder outStub int2str(rrun)]);
+
+        trigThresh              = 0.5;
+        pdiodeChan              = strmatch('UADC004',D.chanlabels);
+        D(pdiodeChan,1:3,1)=1.2;
+        [~, trigTs]             = find_spikess(D(pdiodeChan,:,1)', D.time, trigThresh, 3, 1); 
+        trigTs                  = trigTs{1};
+        trigTs=trigTs(1:(size(trigTs,2))-1);
+
+%  To be sure this worked OK, let's add those trigger times to the plot:
+plot(D.time,D(pdiodeChan,:,1))
+hold on
+scatter(trigTs,trigThresh*ones(size(trigTs)),500,'r.')
+hold off
+keyboard            
+
+% First, crop to the time window of interest
+
+    D=spm_eeg_load([inFolder outStub int2str(rrun)]);
+    dd              = squeeze(D(35,:,1));
+
+    if size(trigTs,2)==1; %rest runs
+        add=240;
+    else
+        add=5; %all other runs 
+    end
+    
+    timeWins{run}   = [0 (trigTs(size(trigTs,2))+add)*1000];    
+
+    S.timewin       = timeWins{run};
+    figure(2)
+    plot(D.time,dd)
+    hold on
+    scatter(S.timewin(2)/1000,0,500,'r.')
+    hold off    
+    keyboard
+    S.D             = D;
+    D               = spm_eeg_crop(S); %clear S dd D 
+end
+
+%%   ICA analysis
+
+
+       parfor run=1:size(first,2)+size(second,2);
+           
+           if run<size(first,2)+1;
+                session=1;
+                rrun=RunsS(run);
+                outStub     = ['Part', num2str(session), '_'];
+                eyeCompts{run}=preprocessMEG_parallel(rrun,downSample,inFolder,outStub);
+           else
+                session=2;
+                rrun=RunsS(run);
+                outStub     = ['Part', num2str(session), '_'];
+                eyeCompts{run}=preprocessMEG_parallel(rrun,downSample,inFolder,outStub);
+           end
+       end
+       
+
+%%Find Components associated with eye-movement
+
+       %  Record the 'nuisance' components
+eyeCompts{1}       = [1]; 
+eyeCompts{2}       = [1]; 
+eyeCompts{3}       = [1];
+eyeCompts{4}       = [1]; 
+eyeCompts{5}       = [1]; 
+eyeCompts{6}       = [1];  
+eyeCompts{7}       = [1];
+eyeCompts{8}       = [1];
+eyeCompts{9}       = [1];
+eyeCompts{10}       = [1];
+eyeCompts{11}       = [1]; 
+eyeCompts{12}       = [1]; 
+
+
+       for run=1:size(first,2)+size(second,2);
+      rrun=RunsS(run);
+            eyeCompts{run}=preprocessMEG3_parallel(rrun,downSample,inFolder,outStub);
+       end
+       
+%%Remove correlatec components and filter signal
+
+       for run=1:size(first,2)+size(second,2);
+           rrun=RunsS(run);
+           a=preprocessMEG4_parallel(run,rrun,downSample,inFolder,outStub,eyeCompts);
+       end
+
+%% Now we just need to epoch the data, and we're done
+
+% Day 1 REVAL
+trigThres= 10;
+screenWin   = [-2 5];
+outStub= 'Part1_';
+for run     = 11:13;
+     rrun=RunsS(run);
+    %  Load the relevant SPM file
+    if downSample
+        D               = spm_eeg_load([inFolder 'ffMdp' outStub int2str(rrun)]);
+    else
+        D               = spm_eeg_load([inFolder 'ffMp' outStub int2str(rrun)]);
+    end
+    pdiodeChan              = strmatch('UADC004',D.chanlabels);
+
+   %load behavioral deval data
+  out=readtable([behFolder '\run0_sub',num2str(subject),'_deval_block12.csv']);
+
+    out=out(out.block_number==rrun-1,:);%RRuns(run),:);
+    taskTimes       = sort(out.time_elapsed(:));
+    stimLabels      = out.state_number';
+    stimLabels      = stimLabels(:);
+    stimNames       = (stimLabels);
+
+
+            trigThresh              = 0.4;
+            pptChan              = strmatch('UADC004',D.chanlabels);
+            D(pdiodeChan,1:3,1)=1.2;
+           plot(D.time,D(pptChan,:,1))
+
+            [~, trigTs]             = find_spikess(D(pdiodeChan,:,1)', D.time, trigThresh, 3, 1);
+            trigTs                  = trigTs{1};
+            trigTs=trigTs';
+           
+%                
+           
+    taskTimes=taskTimes./1000;
+    timeShift               = trigTs(1) - taskTimes(1);
+
+    plot(D.time,D(pptChan,:,1))
+    hold on
+
+    scatter(taskTimes+timeShift,trigThresh*ones(size(taskTimes)),500,'r.')
+    scatter(trigTs(:,1),trigThresh*1.2*ones(size(trigTs)),600,'g.')
+
+    hold off    
+    keyboard
+    clear taskTimes timeShift pptChan S
+   
+    %  Now assign a time window of interest        
+    S.trl(:,1)            = round((trigTs(:,1)+screenWin(1)) .* D.fsample); %clear trigTs    
+    S.trl(:,2)              = S.trl(:,1) + diff(screenWin) * D.fsample;
+    S.conditionlabels       = stimLabels; clear stimLabels
+    S.reviewtrials          = 0;
+    S.save                  = 1;
+    S.D                     = D;
+    D                       = spm_eeg_epochs(S); clear S D stimNames
+
+end
+
+%% merge the reval files within Day 1
+
+clear S
+S.recode    = 'same';   % Leave condition labels unchanged
+for run       = 1:3;
+    rrun=RunsS(run+10);
+
+    if downSample
+        S.D{run}  = spm_eeg_load([inFolder 'effMdp' outStub int2str(rrun)]);
+    else
+        S.D{run}  = spm_eeg_load([inFolder 'effMp' outStub int2str(rrun)]);
+    end
+end
+
+clear r
+
+cd(inFolder)
+D           = spm_eeg_merge(S);
+clear S
+close all
+clc
+
+%% Now we just need to epoch the data, and we're done
+
+% Day 7 DEVAL
+
+%  First, the screening data...
+trigThresh= 10;
+screenWin   = [-2 5];
+%screenWin   = [-2 4.9];
+%screenWin   = [0 240];
+
+outStub= 'Part2_';
+
+for run     = 19:21;
+
+               rrun=RunsS(run);
+
+    %  Load the relevant SPM file
+    if downSample
+        D               = spm_eeg_load([inFolder 'ffMdp' outStub int2str(rrun)]);
+    else
+        D               = spm_eeg_load([inFolder 'ffMp' outStub int2str(rrun)]);
+    end
+    pdiodeChan              = strmatch('UADC004',D.chanlabels);
+
+   
+    out=readtable([behFolder '\run1_sub',num2str(subject),'_deval_block12.csv']);
+    out=out(out.block_number==rrun-9,:);%RRuns(run),:);
+    taskTimes       = sort(out.time_elapsed(:));
+    stimLabels      = out.state_number';
+
+    stimLabels      = stimLabels(:);
+    stimNames       = (stimLabels);
+
+
+            trigThresh              = 0.4;
+            pptChan              = strmatch('UADC004',D.chanlabels);
+            D(pdiodeChan,1:3,1)=1.2;
+            [~, trigTs]             = find_spikess(D(pdiodeChan,:,1)', D.time, trigThresh, 3, 1);
+            trigTs                  = trigTs{1};
+            trigTs=trigTs';
+            taskTimes=taskTimes./1000;
+    timeShift               = trigTs(1) - taskTimes(1);
+
+    plot(D.time,D(pptChan,:,1))
+    hold on
+
+    scatter(taskTimes+timeShift,trigThresh*ones(size(taskTimes)),500,'r.')
+    scatter(trigTs(:,1),trigThresh*1.2*ones(size(taskTimes)),600,'g.')
+
+    hold off    
+    keyboard
+    clear taskTimes timeShift pptChan S
+   
+    %  Now assign a time window of interest        
+    S.trl(:,1)            = round((trigTs(:,1)+screenWin(1)) .* D.fsample); %clear trigTs    
+    S.trl(:,2)              = S.trl(:,1) + diff(screenWin) * D.fsample;
+    S.conditionlabels       = stimLabels; clear stimLabels
+    S.reviewtrials          = 0;
+    S.save                  = 1;
+    S.D                     = D;
+    D                       = spm_eeg_epochs(S); clear S D stimNames
+
+end
+
+%% merge the reval files within Day 7
+
+clear S
+S.recode    = 'same';   % Leave condition labels unchanged
+for run       = 19:21
+    rrun=RunsS(run);
+
+   
+    if downSample
+        S.D{run}  = spm_eeg_load([inFolder 'effMdp' outStub int2str(rrun)]);
+    else
+        S.D{run}  = spm_eeg_load([inFolder 'effMp' outStub int2str(rrun)]);
+    end
+end
+
+clear r
+
+cd(inFolder)
+D           = spm_eeg_merge(S);
+clear S
+close all
+clc
+
+%% Provide some details of the data input file and output file name
+
+S.recode    = 'same';   % Leave condition labels unchanged
+outStub     = 'Part1_';
+
+        S.D{1}  = spm_eeg_load([inFolder 'ceffMp' outStub int2str(1)]);
+
+outStub     = 'Part2_';
+
+        S.D{2}  = spm_eeg_load([inFolder 'ceffMp' outStub int2str(6)]);
+
+
+clear r
+
+cd(inFolder)
+D           = spm_eeg_merge(S);
+clear S
+close all
+clc
+
+
+ outStub     = 'Part1_';   
+ D1=spm_eeg_load([inFolder 'ceffMp' outStub int2str(11)]);
+ outStub     = 'Part2_';
+ D7=spm_eeg_load([inFolder 'ceffMp' outStub int2str(2)]);
+
+A1 = osl_detect_artefacts(D1,'badchannels',true,'badtimes',true,'modalities',{'MEGGRAD'}); % Run the artefact rejection, this will update D.badtrials and D.badchannels
+clear S
+clear D
+S.D             = A1;
+S.fsample_new   = 100;
+D               = spm_eeg_downsample(S); 
+        
+A4 = osl_detect_artefacts(D7,'badchannels',true,'badtimes',true,'modalities',{'MEGGRAD'}); % Run the artefact rejection, this will update D.badtrials and D.badchannels
+clear S
+clear D
+S.D             = A4;
+S.fsample_new   = 100;
+D               = spm_eeg_downsample(S); 
+% clear all
+
+
+%% merge the REVAL across days
+
+S.recode    = 'same';   % Leave condition labels unchanged
+ S.prefix   = 'cq';
+
+outStub     = 'Part1_';
+ S.D{1}  = spm_eeg_load([inFolder 'dceffMp' outStub int2str(11)]);
+
+outStub     = 'Part2_';
+ S.D{2}  = spm_eeg_load([inFolder 'dceffMp' outStub int2str(2)]);
+
+cd(inFolder)
+D           = spm_eeg_merge(S);
+clear S
+close all
+clc
+
+end
+
+
