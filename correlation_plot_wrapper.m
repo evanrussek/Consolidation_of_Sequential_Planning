@@ -12,7 +12,7 @@ in.dep          = 1;                 % irrelevant parameter for current script
 in.timeBins     = 1;                 % irrelevant parameter for current script
 
 for p           = 1:30;%1:30;
-    [~]       	= functionalLocaliserLambdaCV_v20_source_rew(in,p);
+    [~]       	= calculate_correlation_matrix(in,p);
 end
 
 clear p
